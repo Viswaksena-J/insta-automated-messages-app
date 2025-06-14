@@ -47,8 +47,12 @@ export default function InstagramCallback() {
           setError(data.error_message || JSON.stringify(data));
           setStatus("Failed to get access token.");
         }
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError(String(err));
+        }
         setStatus("Failed to get access token.");
       }
     }
