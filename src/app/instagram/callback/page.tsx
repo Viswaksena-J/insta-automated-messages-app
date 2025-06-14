@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 const INSTAGRAM_APP_ID = "1046117153761683";
 const INSTAGRAM_APP_SECRET = "8787e8069952fb2c1072974c8bcc7ae9";
 const REDIRECT_URI = "https://insta-automated-messages-app.vercel.app/instagram/callback";
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3008";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://993a-2405-201-e004-f101-5dbf-419b-3559-85a9.ngrok-free.app";
 
 interface Message {
   id: string;
@@ -51,22 +51,28 @@ function CallbackContent() {
     async function exchangeCode() {
       setStatus("Exchanging code for access token...");
       try {
+        // Use our backend proxy instead of calling Instagram directly
         const res = await fetch(
-          `https://api.instagram.com/oauth/access_token`,
+          `${API_BASE_URL}/api/instagram/auth/token`,
           {
             method: "POST",
             headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
+              "Content-Type": "application/json",
             },
-            body: new URLSearchParams({
-              client_id: INSTAGRAM_APP_ID,
-              client_secret: INSTAGRAM_APP_SECRET,
-              grant_type: "authorization_code",
+            body: JSON.stringify({
+              code,
               redirect_uri: REDIRECT_URI,
-              code: code || "",
-            }).toString(),
+              client_id: INSTAGRAM_APP_ID,
+              client_secret: INSTAGRAM_APP_SECRET
+            }),
           }
         );
+        
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.error || "Failed to exchange code for token");
+        }
+        
         const data = await res.json();
         if (data.access_token) {
           setAccessToken(data.access_token);
