@@ -1,12 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 const INSTAGRAM_APP_ID = "1046117153761683";
 const INSTAGRAM_APP_SECRET = "8787e8069952fb2c1072974c8bcc7ae9";
 const REDIRECT_URI = "https://insta-automated-messages-app.vercel.app/instagram/callback";
 
-export default function InstagramCallback() {
+function CallbackContent() {
   const searchParams = useSearchParams();
   const [status, setStatus] = useState("Exchanging code for access token...");
   const [accessToken, setAccessToken] = useState<string | null>(null);
@@ -75,5 +75,16 @@ export default function InstagramCallback() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function InstagramCallback() {
+  return (
+    <Suspense fallback={<div className="max-w-lg mx-auto mt-20 p-8 bg-white dark:bg-zinc-900 rounded shadow-lg text-center">
+      <h1 className="text-2xl font-bold mb-2">Instagram OAuth Callback</h1>
+      <p>Loading...</p>
+    </div>}>
+      <CallbackContent />
+    </Suspense>
   );
 } 
