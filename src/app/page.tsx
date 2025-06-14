@@ -48,7 +48,7 @@ export default function Home() {
           <button
             onClick={() => {
               window.location.href =
-                "https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=1046117153761683&redirect_uri=https://insta-automated-messages-app.vercel.app&response_type=code&scope=instagram_business_basic,instagram_business_manage_messages,instagram_business_manage_comments,instagram_business_content_publish,instagram_business_manage_insights";
+                "https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=1046117153761683&redirect_uri=https://insta-automated-messages-app.vercel.app/instagram/callback&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments%2Cinstagram_business_content_publish%2Cinstagram_business_manage_insights";
             }}
             className="bg-gradient-to-r from-pink-500 to-yellow-500 text-white rounded px-6 py-3 font-bold text-lg shadow hover:from-pink-600 hover:to-yellow-600 transition"
           >
