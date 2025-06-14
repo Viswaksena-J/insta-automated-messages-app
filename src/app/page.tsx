@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabaseClient";
 import type { User } from "@supabase/supabase-js";
 
-const INSTAGRAM_CLIENT_ID = "1046117153761683";
-const REDIRECT_URI = "https://insta-automated-messages-app.vercel.app/instagram/callback";
-const INSTAGRAM_AUTH_URL = `https://api.instagram.com/oauth/authorize?client_id=${INSTAGRAM_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=user_profile,user_media&response_type=code`;
+// const INSTAGRAM_CLIENT_ID = "1046117153761683";
+// const REDIRECT_URI = "https://insta-automated-messages-app.vercel.app/instagram/callback";
+// const INSTAGRAM_AUTH_URL = `https://api.instagram.com/oauth/authorize?client_id=${INSTAGRAM_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=user_profile,user_media&response_type=code`;
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);

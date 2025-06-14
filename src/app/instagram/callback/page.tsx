@@ -35,7 +35,7 @@ export default function InstagramCallback() {
               client_secret: INSTAGRAM_APP_SECRET,
               grant_type: "authorization_code",
               redirect_uri: REDIRECT_URI,
-              code,
+              code: code || "",
             }).toString(),
           }
         );
